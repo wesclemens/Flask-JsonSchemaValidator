@@ -13,7 +13,6 @@ setup(
     url="https://github.com/wesclemens/Flask-JsonSchemaValidator",
     install_requires=[
         'Flask>=0.10.1',
-        'decorators>=0.1',
         'jsonschema>=2.4.0',
     ],
 )

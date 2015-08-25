@@ -1,12 +1,15 @@
 """
- Simple JSON Schema validator for Flask.
-"""
+    Simple JSON Schema validator for Flask.
 
-import decorators
-import jsonschema
+    :copyright: (c) 2015 by William Clemens.
+    :license: MIT, see LICENSE for more details.
+"""
 import flask
+import functools
+import jsonschema
 
 from werkzeug.exceptions import HTTPException, BadRequest
+
 
 def _json_path_to_string(path):
     formated_path = "(root)"
@@ -18,18 +21,28 @@ def _json_path_to_string(path):
     return formated_path
 
 
-class validator(decorators.FuncDecorator):
+def validator(schema, force=False, json_silent=False, json_cache=True):
+    """Simple decorator for validating JSON request.
+
+    :param schema: python object conforming to JSON schema.
+    :param force: forces validation if mimetype is not
+                  'application/json'.
+    :param json_silent: suppresses warnings if JSON request cannot be
+                        parsed.
+    :param json_cache: caches parsed JSON object.  This is recommend as
+                       if the request body is going to be used in the
+                       request.
     """
-    Simple decorator for validating json request.
-    """
-    def decorate(self, func, schema, force=False, *dec_a, **dec_kw):
-        def decorator(*args, **kwargs):
+    def decorator(func):
+        @functools.wraps(func)
+        def func_wrapper(*args, **kwargs):
             if flask.request.mimetype == 'application/json' or force:
                 try:
                     jsonschema.validate(
                             flask.request.get_json(force=force, cache=True),
                             schema,
                             )
+                    return func(*args, **kwargs)
                 except jsonschema.ValidationError as err:
                     return flask.jsonify(
                             status=400,
@@ -53,4 +66,5 @@ class validator(decorators.FuncDecorator):
                             ), err.code
 
             return func(*args, **kwargs)
-        return decorator
+        return func_wrapper
+    return decorator
