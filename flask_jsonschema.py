@@ -6,8 +6,7 @@ import decorators
 import jsonschema
 import flask
 
-from werkzeug.exceptions import HTTPException
-
+from werkzeug.exceptions import HTTPException, BadRequest
 
 def _json_path_to_string(path):
     formated_path = "(root)"
@@ -28,24 +27,30 @@ class validator(decorators.FuncDecorator):
             if flask.request.mimetype == 'application/json' or force:
                 try:
                     jsonschema.validate(
-                        flask.request.get_json(force=force),
-                        schema,
-                        )
+                            flask.request.get_json(force=force, cache=True),
+                            schema,
+                            )
                 except jsonschema.ValidationError as err:
-                    for foo in err.absolute_path:
-                        print foo
                     return flask.jsonify(
-                        status=400,
-                        status_message="Bad Request",
-                        error_message=err.message,
-                        error_path=_json_path_to_string(err.absolute_path),
-                        ), 400
-                except HTTPException:
+                            status=400,
+                            status_message="Bad Request",
+                            error_message=err.message,
+                            error_path=_json_path_to_string(err.absolute_path),
+                            ), 400
+                except BadRequest as err:
                     return flask.jsonify(
-                        status=400,
-                        status_message="Bad Request",
-                        error_message="Failed to decode request body.",
-                        error_path=None,
-                        ), 400
+                            status=err.code,
+                            status_message=err.name,
+                            error_message="Failed to decode request body.",
+                            error_path=None,
+                            ), err.code
+                except HTTPException as err:
+                    return flask.jsonify(
+                            status=err.code,
+                            status_message=err.name,
+                            error_message=err.description,
+                            error_path=None,
+                            ), err.code
+
             return func(*args, **kwargs)
         return decorator
