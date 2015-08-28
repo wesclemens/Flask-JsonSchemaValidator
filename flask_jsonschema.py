@@ -21,14 +21,12 @@ def _json_path_to_string(path):
     return formated_path
 
 
-def validate(schema, force=False, json_silent=False, json_cache=True):
+def validate(schema, force=False, json_cache=True):
     """Simple decorator for validating JSON request.
 
     :param schema: python object conforming to JSON schema.
     :param force: forces validation if mimetype is not
                   'application/json'.
-    :param json_silent: suppresses warnings if JSON request cannot be
-                        parsed.
     :param json_cache: caches parsed JSON object.  This is recommend as
                        if the request body is going to be used in the
                        request.

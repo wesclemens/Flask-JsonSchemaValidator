@@ -6,13 +6,11 @@ Basic JSON Schema Validator for the [Flask](http://flask.pocoo.org/) web framewo
 Basic usage is to apply the `@validate` decorator to a route. If request validates the route will be called as normal. If the request doesn't validate an error message will be genrated and a `400 BAD REQUEST` will be returned with the error message in the body.
 
 ```
-validate(schema, force=False, json_silent=False, json_cache=True)
+validate(schema, force=False, json_cache=True)
 ```
 schema: [jsonschema](http://json-schema.org/) to validate against
 
 force: try to validate request if `Content-Type` is not `applciation/json` 
-
-json_silent: suppress errors from `flask.request.get_json` 
 
 json_cache: cache json with `flask.request.get_json` 
 
