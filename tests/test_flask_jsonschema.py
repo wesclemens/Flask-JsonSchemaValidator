@@ -4,7 +4,7 @@ import tempfile
 import unittest
 import json
 
-from flask.ext.jsonschema import validate
+from flask.ext.jsonschema import validate, _json_path_to_string
 
 class JsonSchema(unittest.TestCase):
     def setUp(self):
@@ -58,6 +58,19 @@ class JsonSchema(unittest.TestCase):
                 data='{"string": 123}')
         self.assertEqual(rv.status_code, 400)
         self.assertNotEqual(json.loads(rv.data)['status'], 'Success')
+
+    def test_parse_path_int(self):
+        rv = _json_path_to_string([1,])
+        self.assertEqual(rv, '(root)[1]')
+
+    def test_parse_path_string(self):
+        rv = _json_path_to_string(['foo',])
+        self.assertEqual(rv, '(root).foo')
+
+    def test_parse_path_combo(self):
+        rv = _json_path_to_string(['foo', 1, 2, 'baz', 'bar', 23,])
+        self.assertEqual(rv, '(root).foo[1][2].baz.bar[23]')
+
 
 if __name__ == '__main__':
     unittest.main()
