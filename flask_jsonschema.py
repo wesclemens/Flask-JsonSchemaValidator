@@ -40,7 +40,6 @@ def validate(schema, force=False, json_cache=True):
                             flask.request.get_json(force=force, cache=json_cache),
                             schema,
                             )
-                    return func(*args, **kwargs)
                 except jsonschema.ValidationError as err:
                     return flask.jsonify(
                             status=400,
@@ -53,13 +52,6 @@ def validate(schema, force=False, json_cache=True):
                             status=err.code,
                             status_message=err.name,
                             error_message="Failed to decode request body.",
-                            error_path=None,
-                            ), err.code
-                except HTTPException as err:
-                    return flask.jsonify(
-                            status=err.code,
-                            status_message=err.name,
-                            error_message=err.description,
                             error_path=None,
                             ), err.code
 
