@@ -37,7 +37,7 @@ def validate(schema, force=False, json_cache=True):
             if flask.request.mimetype == 'application/json' or force:
                 try:
                     jsonschema.validate(
-                            flask.request.get_json(force=force, cache=True),
+                            flask.request.get_json(force=force, cache=json_cache),
                             schema,
                             )
                     return func(*args, **kwargs)
