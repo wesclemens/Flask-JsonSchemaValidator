@@ -5,10 +5,11 @@ from setuptools import setup, find_packages
 
 setup(
     name="Flask-JsonSchemaValidator",
-    version="0.1",
+    version="0.2",
     packages=find_packages(),
     author="William Clemens",
     author_email="wesclemens@gmail.com",
+    description='Basic JSON Schema Validator for the Flask web framework.',
     license="MIT",
     url="https://github.com/wesclemens/Flask-JsonSchemaValidator",
     install_requires=[
