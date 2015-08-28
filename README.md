@@ -3,10 +3,10 @@
 Basic JSON Schema Validator for the [Flask](http://flask.pocoo.org/) web framework.
 
 ## Usage
-Basic usage is to apply the `@validator` decorator to a route. If request validates the route will be called as normal. If the request doesn't validate an error message will be genrated and a `400 BAD REQUEST` will be returned with the error message in the body.
+Basic usage is to apply the `@validate` decorator to a route. If request validates the route will be called as normal. If the request doesn't validate an error message will be genrated and a `400 BAD REQUEST` will be returned with the error message in the body.
 
 ```
-validator(schema, force=False, json_silent=False, json_cache=True)
+validate(schema, force=False, json_silent=False, json_cache=True)
 ```
 schema: [jsonschema](http://json-schema.org/) to validate against
 
@@ -21,7 +21,7 @@ json_cache: cache json with `flask.request.get_json`
 
 ```python
 @app.route("/", methods=['POST'])
-@jsonschema.validator({
+@jsonschema.validate({
 	        'type': 'object',
 	        'properties': {
 	            'foo': {'type': 'string'},

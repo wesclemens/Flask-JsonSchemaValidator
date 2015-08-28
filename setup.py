@@ -26,5 +26,6 @@ setup(
         'Topic :: Internet :: WWW/HTTP :: Dynamic Content',
         'Topic :: Software Development :: Libraries :: Python Modules'
     ],
-    keywords='Flask jsonschema validation',
+    keywords='Flask jsonschema validation json',
+    test_suite="tests",
 )

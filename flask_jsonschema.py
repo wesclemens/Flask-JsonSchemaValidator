@@ -21,7 +21,7 @@ def _json_path_to_string(path):
     return formated_path
 
 
-def validator(schema, force=False, json_silent=False, json_cache=True):
+def validate(schema, force=False, json_silent=False, json_cache=True):
     """Simple decorator for validating JSON request.
 
     :param schema: python object conforming to JSON schema.
