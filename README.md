@@ -18,6 +18,8 @@ json_cache: cache json with `flask.request.get_json`
 ###Example
 
 ```python
+from flask.ext import jsonschema
+
 @app.route("/", methods=['POST'])
 @jsonschema.validate({
 	        'type': 'object',
