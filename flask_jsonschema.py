@@ -8,7 +8,7 @@ import flask
 import functools
 import jsonschema
 
-from werkzeug.exceptions import HTTPException, BadRequest
+from werkzeug.exceptions import BadRequest
 
 
 def _json_path_to_string(path):
