@@ -5,8 +5,8 @@ from setuptools import setup, find_packages
 
 setup(
     name="Flask-JsonSchemaValidator",
-    version="0.2",
-    packages=find_packages(),
+    version="0.2.1",
+    py_modules=['flask_jsonschema',],
     author="William Clemens",
     author_email="wesclemens@gmail.com",
     description='Basic JSON Schema Validator for the Flask web framework.',
@@ -29,4 +29,5 @@ setup(
     ],
     keywords='Flask jsonschema validation json',
     test_suite="tests",
+    zip_safe=False,
 )
