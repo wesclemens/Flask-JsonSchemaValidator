@@ -4,7 +4,7 @@ import tempfile
 import unittest
 import json
 
-from flask.ext.jsonschema import validate, _json_path_to_string
+from flask_jsonschema import validate, _json_path_to_string
 
 class JsonSchema(unittest.TestCase):
     def setUp(self):

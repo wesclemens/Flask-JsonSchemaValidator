@@ -1,8 +1,9 @@
-#Flask-JsonSchemaValidator
+# Flask-JsonSchemaValidator
 
 Basic JSON Schema Validator for the [Flask](http://flask.pocoo.org/) web framework.
 
 ## Usage
+
 Basic usage is to apply the `@validate` decorator to a route. If request validates the route will be called as normal. If the request doesn't validate an error message will be genrated and a `400 BAD REQUEST` will be returned with the error message in the body.
 
 ```
@@ -15,13 +16,13 @@ force: try to validate request if `Content-Type` is not `applciation/json`
 json_cache: cache json with `flask.request.get_json` 
 
 
-###Example
+### Example
 
 ```python
-from flask.ext import jsonschema
+from flask_jsonschema import validate
 
 @app.route("/", methods=['POST'])
-@jsonschema.validate({
+@validate({
 	        'type': 'object',
 	        'properties': {
 	            'foo': {'type': 'string'},
@@ -35,7 +36,8 @@ def index_post():
             )
 ```
 
-####Valid Request
+#### Valid Request
+
 Request:
 
 ```http
@@ -60,7 +62,8 @@ Date: Thu, 27 Aug 2015 04:05:24 GMT
   "time": "2015-08-27 04:05:24"
 }
 ```
-####Invalid Request
+#### Invalid Request
+
 Request:
 
 ```http

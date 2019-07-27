@@ -3,13 +3,18 @@ Standard Setup script
 """
 from setuptools import setup, find_packages
 
+with open('README.md') as f:
+    long_description = f.read()
+
 setup(
     name="Flask-JsonSchemaValidator",
-    version="0.2.1",
+    version="0.3.0",
     py_modules=['flask_jsonschema',],
     author="William Clemens",
     author_email="wesclemens@gmail.com",
     description='Basic JSON Schema Validator for the Flask web framework.',
+    long_description=long_description,
+    long_description_content_type='text/markdown',
     license="MIT",
     url="https://github.com/wesclemens/Flask-JsonSchemaValidator",
     install_requires=[
@@ -29,5 +34,4 @@ setup(
     ],
     keywords='Flask jsonschema validation json',
     test_suite="tests",
-    zip_safe=False,
 )
